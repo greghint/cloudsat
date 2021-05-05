@@ -1,0 +1,50 @@
+﻿apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo-sat
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-openshift-sat
+  namespace: demo-sat
+spec:
+  selector:
+    matchLabels:
+      app: hello-openshift-sat
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: hello-openshift-sat
+    spec:
+      containers:
+        - name: hello-openshift-sat
+          image: openshift/hello-openshift
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-openshift-sat
+  namespace: demo-sat
+spec:
+  selector:
+    app: hello-openshift-sat
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: hello-openshift-sat
+  namespace: demo-sat
+spec:
+  to:
+    kind: Service
+    name: hello-openshift-sat
+  port:
+    targetPort: 8080
