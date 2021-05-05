@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: hello-openshift-sat
-          image: openshift/hello-openshift
+          image: greghint/cloudsat
           ports:
             - containerPort: 8080
 ---
