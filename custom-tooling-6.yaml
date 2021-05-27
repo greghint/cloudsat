@@ -20,6 +20,6 @@ spec:
     spec:
       containers:
         - name: cust-tools
-          image: greghint/hello-app
+          image: greghint/helloapp
           ports:
             - containerPort: 8080
